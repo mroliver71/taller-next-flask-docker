@@ -1,0 +1,42 @@
+services:
+  db:
+    image: postgres:16
+    container_name: dawa_next_flask_db
+    restart: always
+    environment:
+      POSTGRES_DB: dawa_db
+      POSTGRES_USER: dawa_user
+      POSTGRES_PASSWORD: dawa_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  backend:
+    build:
+      context: ./backend
+    container_name: dawa_next_flask_backend
+    restart: always
+    environment:
+      DB_HOST: db
+      DB_NAME: dawa_db
+      DB_USER: dawa_user
+      DB_PASSWORD: dawa_pass
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: dawa_next_flask_frontend
+    restart: always
+    ports:
+      - "1001:3000"
+    depends_on:
+      - backend
+      
+volumes:
+  postgres_data:

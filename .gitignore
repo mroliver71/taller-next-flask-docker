@@ -1,0 +1,13 @@
+# Backend Python
+backend/venv/
+backend/__pycache__/
+*.pyc
+
+# Frontend Node/Next.js
+frontend/node_modules/
+frontend/.next/
+frontend/.swc/
+
+# Variables de entorno y SO
+.env
+.DS_Store
