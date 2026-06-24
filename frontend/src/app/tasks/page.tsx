@@ -1,6 +1,7 @@
 import TaskActions from "./TaskActions";
 import CreateTaskForm from "./CreateTaskForm";
 import SearchBar from "./SearchBar";
+import { ArrowLeft } from 'lucide-react';
 
 type Task = {
   id: number;
@@ -32,7 +33,7 @@ export default async function TasksPage({
   const tasks = await getTasks(q);
 
   return (
-    <main className="min-h-screen bg-yellow-400 px-6 py-10 font-sans">
+    <main className="min-h-screen bg-[#F5F0E8] px-6 py-10 font-sans">
       <div className="max-w-5xl mx-auto bg-white border-4 border-black shadow-[8px_8px_0px_0px_#000]">
 
         {/* Header */}
@@ -47,21 +48,21 @@ export default async function TasksPage({
           </div>
           <a
             href="/"
-            className="px-5 py-2.5 bg-black text-yellow-400 font-black text-sm uppercase border-2 border-black hover:bg-yellow-400 hover:text-black transition-colors shadow-[3px_3px_0px_0px_#555]"
-          >
-            ← Volver
+             className="inline-flex items-center gap-2 px-5 py-2.5 bg-black text-[#E8C547] font-black text-sm uppercase border-2 border-black hover:bg-[#F5F0E8] hover:text-black transition-colors shadow-[3px_3px_0px_0px_#555]"
+            >
+            <ArrowLeft size={14} /> Volver
           </a>
         </div>
 
         {/* Toolbar */}
-        <div className="flex flex-col sm:flex-row gap-4 items-start justify-between px-8 py-5 border-b-4 border-black bg-yellow-50">
+        <div className="flex flex-col sm:flex-row gap-4 items-start justify-between px-8 py-5 border-b-4 border-black bg-[#FAF7F2]">
           <CreateTaskForm />
           <SearchBar defaultValue={q ?? ""} />
         </div>
 
         {/* Tabla */}
         <table className="w-full text-left border-collapse">
-          <thead className="bg-black text-yellow-400">
+          <thead className="bg-black text-[#E8C547]">
             <tr>
               <th className="px-5 py-3 text-xs font-black uppercase tracking-widest">ID</th>
               <th className="px-5 py-3 text-xs font-black uppercase tracking-widest">Título</th>
@@ -78,7 +79,7 @@ export default async function TasksPage({
               </tr>
             ) : (
               tasks.map((task) => (
-                <tr key={task.id} className="border-b-2 border-black hover:bg-yellow-50 transition-colors">
+                <tr key={task.id} className="border-b-2 border-black hover:bg-[#FAF7F2] transition-colors">
                   <td className="px-5 py-4 font-black text-sm text-black">#{task.id}</td>
                   <td className="px-5 py-4 font-bold text-black">{task.title}</td>
                   <td className="px-5 py-4 text-sm text-gray-700 font-medium">{task.description}</td>
@@ -92,7 +93,7 @@ export default async function TasksPage({
         </table>
 
         {/* Footer */}
-        <div className="px-8 py-5 border-t-4 border-black bg-yellow-50 text-center text-xs font-black uppercase text-black">
+        <div className="px-8 py-5 border-t-4 border-black bg-[#FAF7F2] text-center text-xs font-black uppercase text-black">
           Desarrollo de Aplicaciones Web Avanzadas · Universidad de Guayaquil
         </div>
       </div>

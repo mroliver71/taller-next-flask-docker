@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Trash2, } from "lucide-react";
+
+
 
 type TaskActionsProps = {
   taskId: number;
@@ -70,7 +73,7 @@ export default function TaskActions({ taskId, currentStatus }: TaskActionsProps)
         disabled={loading}
         className="px-3 py-1.5 text-xs font-black uppercase bg-red-500 text-white border-2 border-black shadow-[2px_2px_0px_0px_#000] hover:bg-red-600 transition-colors disabled:opacity-50"
       >
-        Eliminar
+        <Trash2 size={16} />
       </button>
     </div>
   );

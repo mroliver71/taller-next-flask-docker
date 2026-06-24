@@ -25,7 +25,7 @@ export default function SearchBar({ defaultValue }: { defaultValue: string }) {
       />
       <button
         type="submit"
-        className="px-4 py-2 bg-black text-yellow-400 font-black text-sm uppercase border-2 border-black shadow-[2px_2px_0px_0px_#555] hover:bg-yellow-400 hover:text-black transition-colors"
+        className="px-4 py-2 bg-black text-[#E8C547] font-black text-sm uppercase border-2 border-black shadow-[2px_2px_0px_0px_#555] hover:bg-[#F5F0E8] hover:text-black transition-colors"
       >
         Buscar
       </button>
