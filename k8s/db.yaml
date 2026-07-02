@@ -1,0 +1,66 @@
+# El script de inicialización
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-init-script
+data:
+  init.sql: |
+    CREATE TABLE IF NOT EXISTS tasks (
+      id SERIAL PRIMARY KEY,
+      title VARCHAR(150) NOT NULL,
+      description TEXT,
+      status VARCHAR(30) DEFAULT 'PENDIENTE'
+    );
+    INSERT INTO tasks (title, description, status) VALUES
+    ('Investigar Next.js', 'Revisar conceptos principales del framework', 'PENDIENTE'),
+    ('Crear backend Flask', 'Implementar Web Service REST con Python y Flask', 'EN PROCESO'),
+    ('Dockerizar proyecto', 'Configurar frontend, backend y base de datos', 'PENDIENTE');
+---
+#Desplegacion del contenedor por favor, Damian no tocar porque vas a hacer caer el taller. OJO!!!!
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:16
+        env:
+        - name: POSTGRES_DB
+          value: dawa_db
+        - name: POSTGRES_USER
+          value: dawa_user
+        - name: POSTGRES_PASSWORD
+          value: dawa_pass
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - name: init-script
+          mountPath: /docker-entrypoint-initdb.d/init.sql
+          subPath: init.sql
+      volumes:
+      - name: init-script
+        configMap:
+          name: db-init-script
+---
+# El servicio interno
+apiVersion: v1
+kind: Service
+metadata:
+  name: db
+spec:
+  type: ClusterIP
+  selector:
+    app: db
+  ports:
+  - port: 5432
+    targetPort: 5432
